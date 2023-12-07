@@ -22,21 +22,15 @@ export const invokeDallE = async (words) => {
 }
 
 export const addImageToIPFS = async (binaryData) => {
-	console.log('attempting1')
-	const response = await ipfs.add(binaryData);
-	console.log('attempting2');
-	const ipfsHash = result.cid.toString();
-	console.log('Image added to IPFS. IPFS Hash: ', ipfsHash);
-	return ipfsHash;
-	// try {
-	// 	const response = await ipfs.add(binaryData);
-	// 	const ipfsHash = result.cid.toString();
-	// 	console.log('Image added to IPFS. IPFS Hash: ', ipfsHash);
-	// 	return ipfsHash;
-	// }
-	// catch (err) {
-	// 	console.error('Error adding image to IPFS: ', error.message);
-	// 	throw error;
-	// }
-	// return
+	try {
+		const result = await ipfs.add(binaryData);
+		const ipfsHash = result.cid.toString();
+		console.log('Image added to IPFS. IPFS Hash: ', ipfsHash);
+		return ipfsHash;
+	}
+	catch (err) {
+		console.error('Error adding image to IPFS: ', error.message);
+		throw error;
+	}
+	return
 }
