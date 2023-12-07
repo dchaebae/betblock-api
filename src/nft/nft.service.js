@@ -6,7 +6,7 @@ import fs from 'fs'
 dotenv.config();
 
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY})
-const ipfs = create('http://localhost:5001')
+const ipfs = create({url: 'http://localhost:5001/api/v0'})
 var env = process.env.NODE_ENV || 'development'
 
 export const invokeDallE = async (words) => {
@@ -23,13 +23,13 @@ export const invokeDallE = async (words) => {
 
 export const addImageToIPFS = async (binaryData) => {
 	try {
-		const result = await ipfs.add(binaryData);
+		const result = await ipfs.pin.add(binaryData);
 		const ipfsHash = result.cid.toString();
 		console.log('Image added to IPFS. IPFS Hash: ', ipfsHash);
 		await ipfs.pin.add(ipfsHash); // explicitly pin with my ipfs
 		return ipfsHash;
 	}
-	catch (err) {
+	catch (error) {
 		console.error('Error adding image to IPFS: ', error.message);
 		throw error;
 	}

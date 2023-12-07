@@ -12,8 +12,8 @@ const nftController = Router();
 
 nftController.get("/generateImage", async (req, res, next) => {
   const words = req.query.words;
-  let output = await invokeDallE(words)
-  // let output = testImg
+  //let output = await invokeDallE(words)
+  let output = testImg
   let binaryData = Buffer.from(output, 'base64');
   await addImageToIPFS(binaryData).then((response) => {
     res.send({words: words, environment: process.env.NODE_ENV, data: response});
