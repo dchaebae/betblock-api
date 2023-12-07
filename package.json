@@ -1,0 +1,19 @@
+{
+  "name": "betblock-api",
+  "version": "1.0.0",
+  "description": "Node API for generating NFT profiles",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon ./src/index.js"
+  },
+  "author": "Dan Chae",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "ipfs-http-client": "^60.0.1",
+    "jest": "^29.7.0",
+    "openai": "^4.20.1"
+  },
+  "type": "module"
+}
