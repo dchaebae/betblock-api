@@ -26,6 +26,7 @@ export const addImageToIPFS = async (binaryData) => {
 		const result = await ipfs.add(binaryData);
 		const ipfsHash = result.cid.toString();
 		console.log('Image added to IPFS. IPFS Hash: ', ipfsHash);
+		await ipfs.pin.add(cid); // explicitly pin with my ipfs
 		return ipfsHash;
 	}
 	catch (err) {
