@@ -22,8 +22,6 @@ export const invokeDallE = async (words) => {
 }
 
 export const addImageToIPFS = async (binaryData) => {
-	const formData = new FormData();
-	formData.append('file', binaryData, 'betblock1.jpg')
 
 	try {
 		const response = await ipfs.add(binaryData);
