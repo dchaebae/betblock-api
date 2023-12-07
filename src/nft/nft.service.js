@@ -22,7 +22,9 @@ export const invokeDallE = async (words) => {
 }
 
 export const addImageToIPFS = async (binaryData) => {
+	console.log('attempting1')
 	const response = await ipfs.add(binaryData);
+	console.log('attempting2');
 	const ipfsHash = result.cid.toString();
 	console.log('Image added to IPFS. IPFS Hash: ', ipfsHash);
 	return ipfsHash;
