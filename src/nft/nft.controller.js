@@ -24,7 +24,7 @@ const apiKeyMiddleware = (req, res, next) => {
 // invoke DALLE to make NFT image
 nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => {
   const words = req.query.words;
-  const tokenId = req.query.tokenId;
+  const tokenId = req.query?.tokenId;
 
   let output = await invokeDallE(words)
   // let output = testImg
