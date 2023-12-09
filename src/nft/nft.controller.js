@@ -11,11 +11,6 @@ dotenv.config();
 const nftController = Router();
 
 const apiKeyMiddleware = (req, res, next) => {
-  // disallow header requirement for testing purposes if in dev mode
-  if (process.env.NODE_ENV === 'development') {
-    next()
-    return
-  }
   const apiKey = req.headers['x-api-key']
   // prevent anyone from just calling our very public API :)
   if (!apiKey || apiKey !== process.env.INTERNAL_API_KEY) {
@@ -29,13 +24,19 @@ const apiKeyMiddleware = (req, res, next) => {
 // invoke DALLE to make NFT image
 nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => {
   const words = req.query.words;
+  const tokenId = req.query.tokenId;
+
   let output = await invokeDallE(words)
   // let output = testImg
   let binaryData = Buffer.from(output, 'base64');
-  await addImageToIPFS(binaryData).then((response) => {
-    res.send({words: words, environment: process.env.NODE_ENV, data: response});
-  }).catch((error) => {
-    res.status(500).json({error: error.message});  
+  const imageCid = await addImageToIPFS(binaryData).catch((error) => {
+    res.status(500).json({error: error.message});
+  })
+
+  await addMetadataToIPFS(imageCid, tokenId).then((response) => {
+    res.send({words: words, cid: response});
+  }).catch(error => {
+    res.status(500).json({error: error.message})
   })
 });
 
