@@ -12,6 +12,7 @@ const nftController = Router();
 
 const apiKeyMiddleware = (req, res, next) => {
   const apiKey = req.headers['x-api-key']
+  console.log(apiKey)
   // prevent anyone from just calling our very public API :)
   if (!apiKey || apiKey !== process.env.INTERNAL_API_KEY) {
     res.status(401).json({error: 'Need API Key'});
