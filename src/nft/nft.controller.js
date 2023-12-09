@@ -31,13 +31,13 @@ nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => 
   await addImageToIPFS(binaryData).then((response) => {
     res.send({words: words, environment: process.env.NODE_ENV, data: response});
   }).catch((error) => {
-    res.status(500).send(error.message);  
+    res.status(500).json({error: error.message});  
   })
 });
 
 // validate the key, primarily for testing purposes
 nftController.get("/validateKey", apiKeyMiddleware, async (req, res, next) => {
-  res.send('This key is valid!')
+  res.send({message: 'This key is valid!'})
 });
 
 export default nftController;
