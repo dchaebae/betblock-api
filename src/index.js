@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-  res.send("Welcome to Betblock API");
+  res.send("Welcome to Betblock API!");
 });
 
 app.listen(port, () => {
