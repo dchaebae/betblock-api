@@ -1,7 +1,8 @@
 import { Router } from "express";
 import {
   invokeDallE,
-  addImageToIPFS
+  addImageToIPFS,
+  addMetadataToIPFS
 } from './nft.service.js'
 // import { testImg } from './testimage.js'
 import dotenv from 'dotenv'
