@@ -39,21 +39,27 @@ export const addImageToIPFS = async (binaryData) => {
 }
 
 // add metadata to IPFS
-export const addMetadataToIPFS = async (cid, tokenId) => {
+export const addMetadataToIPFS = async (cid, tokenId, words) => {
 	try {
 		let timestamp = parseInt((+new Date) / 1000)
+		let name = 'betblock bio ' + tokenId;
+		let description = 'betblock bio - newbie level: ' + words
 		let metadata = {
-			name: 'betblock bio ' + tokenId,
+			name: name,
 			external_url: 'https://betblock.fi',
 			image: 'ipfs://' + cid,
-			description: 'betblock bio - newbie level',
+			description: description,
 			createdAt: timestamp,
-			updatedAt: timestamp
 		}
 		const result = await ipfs.add(JSON.stringify(metadata))
 		const ipfsHash = result.cid.toString();
 		console.log('Metadata to image added to IPFS. IPFS Hash: ', ipfsHash)
-		return ipfsHash;
+		return {
+			cid: ipfsHash,
+			name: name,
+			description: description,
+			image: 'ipfs://' + cid
+		};
 	}
 	catch (error) {
 		console.error('Error adding metadata to IPFS: ', error.message)
