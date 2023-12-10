@@ -27,7 +27,12 @@ nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => 
   const words = req.query.words;
   const tokenId = req.query?.tokenId;
 
-  let output = await invokeDallE(words)
+  try {
+    let output = await invokeDallE(words)
+  }
+  catch (error) {
+    res.status(400).json({error: error.message})
+  }
   // let output = testImg
   let binaryData = Buffer.from(output, 'base64');
   const imageCid = await addImageToIPFS(binaryData).catch((error) => {
