@@ -54,12 +54,7 @@ export const addMetadataToIPFS = async (cid, tokenId, words) => {
 		const result = await ipfs.add(JSON.stringify(metadata))
 		const ipfsHash = result.cid.toString();
 		console.log('Metadata to image added to IPFS. IPFS Hash: ', ipfsHash)
-		return {
-			cid: ipfsHash,
-			name: name,
-			description: description,
-			image: 'ipfs://' + cid
-		};
+		return {imageURI: 'ipfs://' + cid}
 	}
 	catch (error) {
 		console.error('Error adding metadata to IPFS: ', error.message)
