@@ -46,7 +46,7 @@ nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => 
   })
 
   await addMetadataToIPFS(imageCid, tokenId, words).then((response) => {
-    res.end(JSON.stringify(response));
+    res.end(JSON.stringify(response.data));
     return
   }).catch(error => {
     res.status(500).json({error: error.message})
