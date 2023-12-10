@@ -26,22 +26,27 @@ const apiKeyMiddleware = (req, res, next) => {
 nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => {
   const words = req.query.words;
   const tokenId = req.query?.tokenId;
-
-  let output = await invokeDallE(words).catch((error) => {
-    res.status(400).json({error: error.message})
-  })
-
-  // let output = testImg
-  let binaryData = Buffer.from(output, 'base64');
-  const imageCid = await addImageToIPFS(binaryData).catch((error) => {
-    res.status(500).json({error: error.message});
-  })
-
-  await addMetadataToIPFS(imageCid, tokenId, words).then((response) => {
-    res.send(response.imageURI);
-  }).catch(error => {
-    res.status(500).json({error: error.message})
-  })
+  res.send({imageURI: 'QmQjGcrVEdfTvin4uH45xwKEQPL2j8WJU7AfCyTkUoWmTB'})
+//   let output = await invokeDallE(words).catch((error) => {
+//     res.status(400).json({error: error.message})
+//     return
+//   })
+// 
+//   // let output = testImg
+//   let binaryData = Buffer.from(output, 'base64');
+//   const imageCid = await addImageToIPFS(binaryData).catch((error) => {
+//     res.status(500).json({error: error.message});
+//     return
+//   })
+// 
+//   await addMetadataToIPFS(imageCid, tokenId, words).then((response) => {
+//     console.log(response)
+//     res.send(response);
+//     return
+//   }).catch(error => {
+//     res.status(500).json({error: error.message})
+//     return
+//   })
 });
 
 // validate the key, primarily for testing purposes
