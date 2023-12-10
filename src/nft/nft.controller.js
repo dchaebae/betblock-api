@@ -26,7 +26,13 @@ const apiKeyMiddleware = (req, res, next) => {
 nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => {
   const words = req.query.words;
   const tokenId = req.query?.tokenId;
-  res.send({imageURI: 'QmQjGcrVEdfTvin4uH45xwKEQPL2j8WJU7AfCyTkUoWmTB'})
+  let sampleOutput = {
+      cid: 'QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ',
+      name: 'betblock bio 0',
+      description: 'betblock bio - newbie level: excited puppy jumping up and down',
+      image: 'ipfs://QmQjGcrVEdfTvin4uH45xwKEQPL2j8WJU7AfCyTkUoWmTB'
+    };
+  res.send(Buffer.from(JSON.stringify(sampleOutput)))
 //   let output = await invokeDallE(words).catch((error) => {
 //     res.status(400).json({error: error.message})
 //     return
