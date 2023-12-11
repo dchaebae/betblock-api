@@ -34,7 +34,7 @@ export const addImageToIPFS = async (binaryData) => {
 		
 		const cid = CID.parse(ipfsHash)
 		console.log('Image added to IPFS. IPFS Hash: ', cid.toV1().toString());
-		
+
 		return cid.toV1().toString();
 	}
 	catch (error) {
@@ -73,15 +73,15 @@ export const addMetadataToIPFS = async (cid, tokenId, words) => {
 // mint NFT given token URI, tokenId
 export const mintNFT = async (uriCID, tokenId) => {
 	let uri = 'ifps://' + uriCID;
-	console.log(uri, tokenId)
 	try {
 		let mintSimulation = await publicFujiClient.simulateContract({
 			address: mintAddress,
 			abi: mintABI,
 			functionName: 'mintBioToken',
 			args: [uri, parseInt(tokenId)]
-		});
-		await internalFujiClient.writeContract(mintSimulation.request);
+		}).then((res) => {
+			internalFujiClient.writeContract(mintSimulation.request);
+		}).catch((err) => {});
 	}
 	catch (error) {
 		console.error('Error adding metadata to IPFS: ', error.message)
