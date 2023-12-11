@@ -73,6 +73,7 @@ export const addMetadataToIPFS = async (cid, tokenId, words) => {
 // mint NFT given token URI, tokenId
 export const mintNFT = async (uriCID, tokenId) => {
 	let uri = 'ifps://' + uriCID;
+	console.log(uri, tokenId)
 	try {
 		let mintSimulation = await publicFujiClient.simulateContract({
 			address: mintAddress,
