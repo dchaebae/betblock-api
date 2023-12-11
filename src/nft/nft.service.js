@@ -2,8 +2,8 @@ import OpenAI from 'openai'
 import dotenv from 'dotenv'
 import {create} from 'ipfs-http-client'
 import fs from 'fs'
-import {mintAddress, mintABI} from './contractDetails'
-import {publicFujiClient, internalFujiClient} from './ViemClients'
+import {mintAddress, mintABI} from './contractDetails.js'
+import {publicFujiClient, internalFujiClient} from './ViemClients.js'
 
 dotenv.config();
 

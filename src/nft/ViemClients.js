@@ -14,12 +14,7 @@ export const publicFujiClient = createPublicClient({
 	transport: http()
 });
 
-export const walletFujiClient = createWalletClient({
-	chain: avalancheFuji,
-	transport: custom(window.ethereum)
-})
-
-export. const internalFujiClient = createWalletClient({
+export const internalFujiClient = createWalletClient({
 	account: process.env.INTERNAL_WALLET_PRIVATE_KEY,
 	chain: avalancheFuji,
 	transport: http()
