@@ -5,6 +5,7 @@ import {
   addMetadataToIPFS
 } from './nft.service.js'
 // import { testImg } from './testimage.js'
+import {CID} from 'multiformats/cid'
 import dotenv from 'dotenv'
 
 dotenv.config();
@@ -26,11 +27,13 @@ const apiKeyMiddleware = (req, res, next) => {
 nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => {
   const words = req.query.words;
   const tokenId = req.query?.tokenId;
+
+  let imageCID = CID.parse('QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ')
   let sampleOutput = {
       // cid: 'QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ',
       // name: 'betblock bio 0',
       // description: 'betblock bio - newbie level: excited puppy jumping up and down',
-      image: 'ipfs://QmQjGcrVEdfTvin4uH45xwKEQPL2j8WJU7AfCyTkUoWmTB'
+      image: imageCID.toV1().toString()
     };
   res.end(JSON.stringify(sampleOutput))
 //   let output = await invokeDallE(words).catch((error) => {
