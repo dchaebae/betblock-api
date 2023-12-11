@@ -4,6 +4,7 @@ import {create} from 'ipfs-http-client'
 import fs from 'fs'
 import {mintAddress, mintABI} from './contractDetails.js'
 import {publicFujiClient, internalFujiClient} from './ViemClients.js'
+import {CID} from 'multiformats/cid'
 
 dotenv.config();
 
@@ -30,8 +31,11 @@ export const addImageToIPFS = async (binaryData) => {
 	try {
 		const result = await ipfs.add(binaryData);
 		const ipfsHash = result.cid.toString();
-		console.log('Image added to IPFS. IPFS Hash: ', ipfsHash);
-		return ipfsHash;
+		
+		const cid = CID.parse(ipfsHash)
+		console.log('Image added to IPFS. IPFS Hash: ', cid.toV1().toString());
+		
+		return cid.toV1().toString();
 	}
 	catch (error) {
 		console.error('Error adding image to IPFS: ', error.message);
@@ -55,13 +59,9 @@ export const addMetadataToIPFS = async (cid, tokenId, words) => {
 		}
 		const result = await ipfs.add(JSON.stringify(metadata))
 		const ipfsHash = result.cid.toString();
-		console.log('Metadata to image added to IPFS. IPFS Hash: ', ipfsHash)
-		return {
-			cid: ipfsHash,
-			name: name,
-			description: description,
-			image: 'ipfs://' + cid
-		};
+		const cidObject = CID.parse(ipfsHash)
+		console.log('Metadata to image added to IPFS. IPFS Hash: ', cidObject.toV1().toString())
+		return cidObject.toV1().toString();
 	}
 	catch (error) {
 		console.error('Error adding metadata to IPFS: ', error.message)
