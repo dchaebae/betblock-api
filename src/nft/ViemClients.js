@@ -1,8 +1,12 @@
 import {createPublicClient, http, createWalletClient, custom} from 'viem'
 import { avalancheFuji, mainnet } from 'viem/chains'
+import { privateKeyToAccount } from 'viem/accounts'
 import dotenv from 'dotenv'
 
 dotenv.config();
+
+const internalAccount = privateKeyToAccount(process.env.INTERNAL_WALLET_PRIVATE_KEY)
+
 
 export const publicMainnetClient = createPublicClient({
 	chain: mainnet,
@@ -15,7 +19,7 @@ export const publicFujiClient = createPublicClient({
 });
 
 export const internalFujiClient = createWalletClient({
-	account: process.env.INTERNAL_WALLET_PRIVATE_KEY,
+	account: internalAccount,
 	chain: avalancheFuji,
 	transport: http()
 })

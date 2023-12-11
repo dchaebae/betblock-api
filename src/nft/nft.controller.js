@@ -31,13 +31,13 @@ nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => 
 
   // let imageCID = CID.parse('QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ')
   // let sampleOutput = {
-  //     // cid: 'QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ',
+  //     // cid: 'bafybeifefa7kwlpv33s3egvxbqhde3ece3dz74cpaqgckf3j6fledm7zqa',
   //     // name: 'betblock bio 0',
   //     // description: 'betblock bio - newbie level: excited puppy jumping up and down',
   //     image: 'ipfs://' + imageCID.toV1().bytes()
   //   };
   let sampleOutput = {
-    image: 'ipfs://' + 'bafybeifefa7kwlpv33s3egvxbqhde3ece3dz74cpaqgckf3j6fledm7zqa'
+    image: 'ipfs://bafybeifefa7kwlpv33s3egvxbqhde3ece3dz74cpaqgckf3j6fledm7zqa'
   }
   await mintNFT('bafybeifefa7kwlpv33s3egvxbqhde3ece3dz74cpaqgckf3j6fledm7zqa', tokenId)
   res.end(JSON.stringify(sampleOutput))
