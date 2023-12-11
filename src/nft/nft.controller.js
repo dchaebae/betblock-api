@@ -32,8 +32,7 @@ nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => 
       description: 'betblock bio - newbie level: excited puppy jumping up and down',
       image: 'ipfs://QmQjGcrVEdfTvin4uH45xwKEQPL2j8WJU7AfCyTkUoWmTB'
     };
-  console.log(sampleOutput.image)
-  res.end(sampleOutput.image)
+  res.end({data: sampleOutput.image})
 //   let output = await invokeDallE(words).catch((error) => {
 //     res.status(400).json({error: error.message})
 //     return
