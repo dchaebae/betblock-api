@@ -74,13 +74,13 @@ export const addMetadataToIPFS = async (cid, tokenId, words) => {
 export const mintNFT = async (uriCID, tokenId) => {
 	let uri = 'ifps://' + uriCID;
 	try {
-		let mintSimulation = await publicFujiClient.simulateContract({
+		await publicFujiClient.simulateContract({
 			address: mintAddress,
 			abi: mintABI,
 			functionName: 'mintBioToken',
 			args: [uri, parseInt(tokenId)]
 		}).then((res) => {
-			internalFujiClient.writeContract(mintSimulation.request);
+			internalFujiClient.writeContract(res.request);
 		}).catch((err) => {});
 	}
 	catch (error) {
