@@ -2,6 +2,8 @@ import OpenAI from 'openai'
 import dotenv from 'dotenv'
 import {create} from 'ipfs-http-client'
 import fs from 'fs'
+import {mintAddress, mintABI} from './contractDetails'
+import {publicFujiClient, internalFujiClient} from './ViemClients'
 
 dotenv.config();
 
@@ -60,6 +62,25 @@ export const addMetadataToIPFS = async (cid, tokenId, words) => {
 			description: description,
 			image: 'ipfs://' + cid
 		};
+	}
+	catch (error) {
+		console.error('Error adding metadata to IPFS: ', error.message)
+		throw error
+	}
+	return
+}
+
+// mint NFT given token URI, tokenId
+export const mintNFT = async (uriCID, tokenId) => {
+	let uri = 'ifps://' + uriCID;
+	try {
+		let mintSimulation = await publicFujiClient.simulateContract({
+			address: mintAddress,
+			abi: mintABI,
+			functionName: 'mintBioToken',
+			args: [uri, parseInt(tokenId)]
+		});
+		await internalFujiClient.writeContract(mintSimulation.request);
 	}
 	catch (error) {
 		console.error('Error adding metadata to IPFS: ', error.message)

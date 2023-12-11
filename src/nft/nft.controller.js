@@ -2,7 +2,8 @@ import { Router } from "express";
 import {
   invokeDallE,
   addImageToIPFS,
-  addMetadataToIPFS
+  addMetadataToIPFS,
+  mintNFT
 } from './nft.service.js'
 // import { testImg } from './testimage.js'
 import {CID} from 'multiformats/cid'
@@ -15,10 +16,10 @@ const nftController = Router();
 const apiKeyMiddleware = (req, res, next) => {
   const apiKey = req.headers['x-api-key']
   // prevent anyone from just calling our very public API :)
-  if (!apiKey || apiKey !== process.env.INTERNAL_API_KEY) {
-    res.status(401).json({error: 'Need API Key'});
-    return;
-  }
+  // if (!apiKey || apiKey !== process.env.INTERNAL_API_KEY) {
+  //   res.status(401).json({error: 'Need API Key'});
+  //   return;
+  // }
 
   next();
 }
@@ -28,13 +29,17 @@ nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => 
   const words = req.query.words;
   const tokenId = req.query?.tokenId;
 
-  let imageCID = CID.parse('QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ')
+  // let imageCID = CID.parse('QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ')
+  // let sampleOutput = {
+  //     // cid: 'QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ',
+  //     // name: 'betblock bio 0',
+  //     // description: 'betblock bio - newbie level: excited puppy jumping up and down',
+  //     image: 'ipfs://' + imageCID.toV1().bytes()
+  //   };
   let sampleOutput = {
-      // cid: 'QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ',
-      // name: 'betblock bio 0',
-      // description: 'betblock bio - newbie level: excited puppy jumping up and down',
-      image: imageCID.toV1().toString()
-    };
+    image: 'ipfs://' + 'bafybeifefa7kwlpv33s3egvxbqhde3ece3dz74cpaqgckf3j6fledm7zqa'
+  }
+  await mintNFT('bafybeifefa7kwlpv33s3egvxbqhde3ece3dz74cpaqgckf3j6fledm7zqa', tokenId)
   res.end(JSON.stringify(sampleOutput))
 //   let output = await invokeDallE(words).catch((error) => {
 //     res.status(400).json({error: error.message})
