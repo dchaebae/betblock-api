@@ -27,9 +27,9 @@ nftController.get("/generateImage", apiKeyMiddleware, async (req, res, next) => 
   const words = req.query.words;
   const tokenId = req.query?.tokenId;
   let sampleOutput = {
-      cid: 'QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ',
-      name: 'betblock bio 0',
-      description: 'betblock bio - newbie level: excited puppy jumping up and down',
+      // cid: 'QmQ8kVmrQgSy9VY7jfNqHwrkdbHeqZUQg6EUGFGSJ6eLEQ',
+      // name: 'betblock bio 0',
+      // description: 'betblock bio - newbie level: excited puppy jumping up and down',
       image: 'ipfs://QmQjGcrVEdfTvin4uH45xwKEQPL2j8WJU7AfCyTkUoWmTB'
     };
   res.end(JSON.stringify(sampleOutput))
